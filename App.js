@@ -1,107 +1,82 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; 
-import { Image,Button } from 'react-native';
-import React, { useState, useId } from 'react';
-
-
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  Button,
+  TouchableOpacity,
+} from "react-native";
 export default function App() {
-  const [inputText, setInputText] = useState('');
-  //const ageInputId = useId();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <View style={styles.container}>
-      <Image
-        source={require('./assets/testicon.jpeg')} // Adjust the path based on your project structure
-        style={styles.logo}
-      />
-
-      <Text style={styles.title}>SmartFit - Stay Fit Always</Text>
-
-          <View style={{ height: 20 }} //to add white space
-          /> 
-        
-        <View style={styles.rowContainer}>
-          <Text style = {{marginRight:10}}>
-             Name:
-          </Text>
-
-          <TextInput
-            placeholder="Enter your text here"
-            onChangeText={(text) => setInputText(text)}
-            value={inputText}
-            style={styles.input}
-            />
-        </View>
-
-        <View style={styles.rowContainer}>
-          <Text style = {{marginRight:29}}>
-             Password:
-          </Text>
-
-          <TextInput
-            placeholder="Enter your texter here"
-            onChangeText1={(text) => setInputText(text)}
-            value1={inputText}//changed variable name
-            style={styles.input}/>
-        </View>
-
-        <Button title="LOGIN" />
-
-    </View>
+      <Image style={styles.image} source={require("./assets/logo.png")} /> 
+      <StatusBar style="auto" />
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Email."
+          placeholderTextColor="#003f5c"
+          onChangeText={(email) => setEmail(email)}
+        /> 
+      </View> 
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Password."
+          placeholderTextColor="#003f5c"
+          secureTextEntry={true}
+          onChangeText={(password) => setPassword(password)}
+        /> 
+      </View> 
+      <TouchableOpacity>
+        <Text style={styles.forgot_button}>Forgot Password?</Text> 
+      </TouchableOpacity> 
+      <TouchableOpacity style={styles.loginBtn}>
+        <Text style={styles.loginText}>LOGIN</Text> 
+      </TouchableOpacity> 
+    </View> 
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: '#3498db', // Change the background color to a different color code
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
-
-  rowContainer: {
-    flexDirection: 'row', // Arrange children in a row
-    alignItems: 'center', // Align items vertically within the row
-    marginBottom: 5, // Add margin for separation
+  image: {
+    marginBottom: 40,
   },
-
-  logo: {
-    width: 150,
-    height: 150,
+  inputView: {
+    backgroundColor: "#FFC0CB",
+    borderRadius: 30,
+    width: "70%",
+    height: 45,
     marginBottom: 20,
+    alignItems: "center",
   },
-
-  title: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    color: '#3498db',
-  },
-
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 0.5,
-    marginBottom: 10,
+  TextInput: {
+    height: 50,
+    flex: 1,
     padding: 10,
-    width: 200,
+    marginLeft: 20,
   },
-
-
-  leftAlign: {
-    textAlign: 'left', // Add this style to left-align text
+  forgot_button: {
+    height: 30,
+    marginBottom: 30,
   },
-
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#3498db',
+  loginBtn: {
+    width: "80%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    backgroundColor: "#FF1493",
   },
-
-  text1: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#3498db',
-  },
-});
-
-
+}); 
