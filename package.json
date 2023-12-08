@@ -9,11 +9,26 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@chatscope/chat-ui-kit-react": "^1.10.1",
+    "@expo/webpack-config": "^19.0.0",
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/stack": "^6.3.20",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
     "expo": "~49.0.15",
     "expo-status-bar": "~1.6.0",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "install": "^0.13.0",
     "mysql": "^2.18.1",
+    "mysql2": "^3.6.5",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
     "react": "18.2.0",
-    "react-native": "0.72.6"
+    "react-chat-engine": "^1.11.28",
+    "react-dom": "18.2.0",
+    "react-native": "0.72.6",
+    "react-native-web": "~0.19.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

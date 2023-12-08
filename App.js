@@ -6,15 +6,41 @@ import {
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
 } from "react-native";
+
 export default function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("http://localhost:8082", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      console.log(email);
+
+      if (data.success) {
+        console.log("Login successful");
+        // Handle successful login
+      } else {
+        console.error("Login failed:", data.error);
+        // Handle login failure
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require("./assets/logo.png")} /> 
+      <Image style={styles.image} source={require("./assets/testpic.png")} /> 
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
@@ -36,7 +62,7 @@ export default function App() {
       <TouchableOpacity>
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.loginBtn}>
+      <TouchableOpacity style={styles.loginBtn} onPress={() => handleLogin()}>
         <Text style={styles.loginText}>LOGIN</Text> 
       </TouchableOpacity> 
     </View> 
