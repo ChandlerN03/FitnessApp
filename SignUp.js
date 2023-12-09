@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import { View, ScrollView, TextInput, TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
+import axios from 'axios';
 
 function SignUp({navigation}) {
-    const [usernameReg, setUsernameReg] = useState("");
-  const [passwordReg, setPasswordReg] = useState("");
-  
-
-
     const [fullname, setFullname] = useState("");
     const [age, setAge] = useState("");
     const [gender, setGender] = useState("");
@@ -19,7 +15,9 @@ function SignUp({navigation}) {
     const [username, setUsername] = useState("");
     const [newPassword, setNewPassword] = useState("");
   
-    const onPressSignUp = () => {
+    const onPressSignUp = async () => {
+        try{
+    console.log("onPressSignUp function called");
       const userDetails = {
         Fullname: fullname,
         Age: age,
@@ -31,9 +29,24 @@ function SignUp({navigation}) {
         PhoneNumber: phoneNumber,
         Username: username,
         Password: newPassword,
-      };
-      Alert.alert("Sign Up", JSON.stringify(userDetails, null, 2));
-      navigation.navigate('SignUp');
+      }; 
+      console.log("User details:", userDetails);
+      const response = await axios.post("http://localhost:3000/register", userDetails);
+      console.log("Server response:", response.data);
+  
+      alert("User registered successfully!");
+      navigation.navigate('Login');
+    }
+    
+    catch (error) {
+        console.error("Error during registration:", error);
+    
+        if (error.response) {
+          console.error("Server response:", error.response.data);
+        }
+    
+        Alert.alert("Error", "Failed to register user.");
+      }
     };
   
     return (
@@ -114,7 +127,7 @@ function SignUp({navigation}) {
             style={styles.TextInput}
             placeholder="Username"
             placeholderTextColor="#003f5c"
-            onChangeText={() => setUsername(text)}
+            onChangeText={(text) => setUsername(text)}
           />
         </View>
         <View style={styles.inputView}>
@@ -146,6 +159,7 @@ function SignUp({navigation}) {
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
+        marginTop: 50, 
       },
     signupBtn: {
       width: "80%",
@@ -169,8 +183,8 @@ function SignUp({navigation}) {
         alignItems: "center",
       },
       TextInput: {
-        height: 60,
-        width: "100%", // Set width to 100% to ensure it spans the entire width of the inputView
+        height: 40, // Adjust the height as needed
+        width: "100%",
         padding: 10,
         marginLeft: 20,
       },
@@ -186,6 +200,11 @@ function SignUp({navigation}) {
     loginText: {
       color: "white",
     },
+    title: {
+        fontSize: 24,
+        fontWeight: "bold",
+        marginBottom: 20, // Adjust this value to create space between title and input fields
+      },
   });
 
   export default SignUp;
