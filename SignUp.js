@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { View, TextInput, TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
+import { View, ScrollView, TextInput, TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 
 function SignUp({navigation}) {
     const [usernameReg, setUsernameReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
+  
 
 
     const [fullname, setFullname] = useState("");
@@ -35,6 +37,7 @@ function SignUp({navigation}) {
     };
   
     return (
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.container}>
         <Text style={styles.title}> Sign Up</Text>
         <View style={styles.inputView}>
@@ -126,10 +129,13 @@ function SignUp({navigation}) {
         <TouchableOpacity onPress={onPressSignUp} style={styles.signupBtn}>
           <Text style={styles.signupText}>SIGN UP</Text>
         </TouchableOpacity>
+        
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.loginBtn}>
           <Text style={styles.loginText}>Go Back</Text>
         </TouchableOpacity>
       </View>
+      </ScrollView>
+
     );
   }
 
@@ -163,8 +169,8 @@ function SignUp({navigation}) {
         alignItems: "center",
       },
       TextInput: {
-        height: 50,
-        flex: 1,
+        height: 60,
+        width: "100%", // Set width to 100% to ensure it spans the entire width of the inputView
         padding: 10,
         marginLeft: 20,
       },
