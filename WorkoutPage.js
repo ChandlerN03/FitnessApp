@@ -9,7 +9,7 @@ const WorkoutPage = () => {
   return (
     <View style={{ flex: 1, padding: 20 }}>
        
-       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#D3D3D3' }}>
         <Text style={{ fontSize: 24, fontWeight: 'bold' }}>SmartFit</Text>
         
         <Image
@@ -19,6 +19,7 @@ const WorkoutPage = () => {
       </View>
       <Text>Select Muscle Focus:</Text>
       <Picker
+      
         selectedValue={muscleFocus}
         onValueChange={(itemValue) => setMuscleFocus(itemValue)}
       >
