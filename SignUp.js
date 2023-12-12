@@ -162,14 +162,14 @@ function SignUp({navigation}) {
         marginTop: 50, 
       },
     signupBtn: {
-      width: "80%",
+      width: "1000%",
       borderRadius: 25,
       height: 50,
       alignItems: "center",
       justifyContent: "center",
       marginTop: 20,
       marginBottom: 10,
-      backgroundColor: "#4CAF50",
+      backgroundColor: "#6DCCF2",
     },
     signupText: {
       color: "white",
@@ -177,7 +177,9 @@ function SignUp({navigation}) {
     inputView: {
         backgroundColor: "#FFC0CB",
         borderRadius: 30,
-        width: "70%",
+        width: "1000%",
+        borderWidth:2,
+        borderColor: "black",
         height: 45,
         marginBottom: 20,
         alignItems: "center",
@@ -185,11 +187,12 @@ function SignUp({navigation}) {
       TextInput: {
         height: 40, // Adjust the height as needed
         width: "100%",
-        padding: 10,
+        padding: 20,
         marginLeft: 20,
+        
       },
     loginBtn: {
-      width: "80%",
+      width: "1000%",
       borderRadius: 25,
       height: 50,
       alignItems: "center",
