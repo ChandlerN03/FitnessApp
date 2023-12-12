@@ -2,10 +2,11 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Button, View, Text } from "react-native";
+import { Button, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Login from "./Login";
 import SignUp from "./SignUp";
+import BMIpage from "./BMIpage"; // Import BMIpage component
 import Home from "./Home";
 
 const Stack = createStackNavigator();
@@ -32,7 +33,16 @@ function App() {
           component={SignUp}
           options={{ title: "Sign Up" }} // Set the header title for the SignUp screen
         />
-        <Stack.Screen name="Home" component={Home} />
+         <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ title: "Home Page" }} // Set the header title for the BMIpage screen
+        />
+        <Stack.Screen
+          name="BMIpage"
+          component={BMIpage}
+          options={{ title: "BMI Calculator" }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
