@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
-import { View, Text, Picker, Image } from 'react-native';
+import { View, Text, Picker, Image, Button } from 'react-native';
 
 const WorkoutPage = () => {
   const [muscleFocus, setMuscleFocus] = useState('');
   const [location, setLocation] = useState('');
   const [equipment, setEquipment] = useState('');
+
+  const handleSubmission = () => {
+    // You can customize this function to handle the submission of selected values
+    // For now, we'll just display an alert with the selected values
+    Alert.alert(
+      'Selected Values',
+      `Muscle Focus: ${muscleFocus}\nLocation: ${location}\nEquipment: ${equipment}`
+    );
+  };
 
   return (
     <View style={{ flex: 1, padding: 20 }}>
@@ -22,6 +31,8 @@ const WorkoutPage = () => {
       
         selectedValue={muscleFocus}
         onValueChange={(itemValue) => setMuscleFocus(itemValue)}
+        style={{padding: 10, marginBottom: 20}}
+
       >
         <Picker.Item label="Choose One" value="Choose One"/>
         <Picker.Item label="Chest" value="Chest" />
@@ -34,6 +45,8 @@ const WorkoutPage = () => {
       <Picker
         selectedValue={location}
         onValueChange={(itemValue) => setLocation(itemValue)}
+        style={{padding: 10, marginBottom: 20}}
+
       >
         <Picker.Item label="Choose One" value="Choose One"/>        
         <Picker.Item label="Gym" value="Gym" />
@@ -44,6 +57,7 @@ const WorkoutPage = () => {
       <Picker
         selectedValue={equipment}
         onValueChange={(itemValue) => setEquipment(itemValue)}
+        style={{padding: 10, marginBottom: 20}}
       >
         <Picker.Item label="Choose One" value="Choose One"/>
         <Picker.Item label="Dumbbells" value="Dumbbells" />
@@ -51,6 +65,11 @@ const WorkoutPage = () => {
         <Picker.Item label="Resistance Bands" value="Resistance Bands" />
         {/* Add more equipment options as needed */}
       </Picker>
+      <Button
+        title="Submit"
+        onPress={handleSubmission}
+        style={{paddingVertical: 50 }}
+      />
     </View>
   );
 };
