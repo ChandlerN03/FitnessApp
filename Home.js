@@ -59,17 +59,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   profileCard: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 20,
+    backgroundColor: "rgba(255, 255, 255, 0.8)", // Semi-transparent white background
+    borderRadius: 20, // Adjust the border radius for a bigger card
+    padding: 30, // Adjust the padding for a bigger card
     elevation: 5,
     position: "absolute",
     top: 20,
     left: 20,
   },
   cardText: {
-    fontSize: 16,
-    marginBottom: 10,
+    fontSize: 18, // Increase the font size for better readability
+    marginBottom: 15, // Adjust the margin for better spacing
   },
   button: {
     backgroundColor: "#2596be",
