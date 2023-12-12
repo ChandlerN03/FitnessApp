@@ -7,7 +7,6 @@ const cors = require('cors');
 
 const bodyParser = require("body-parser");
 const session = require ("express-session");
-// Enable CORS for all routes
 //onst bodyParser = require("body-parser");
 
 const app = express();
@@ -70,6 +69,27 @@ app.post("/login",(req,res)=>{
     }
   );
 })
+
+app.get("/member/:username", (req, res) => {
+  const username = req.params.username;
+
+  connection.query(
+    "SELECT * FROM Member WHERE username = ?",
+    [username],
+    (err, result) => {
+      if (err) {
+        res.status(500).send({ err: err });
+      }
+
+      if (result.length > 0) {
+        const memberInfo = result[0];
+        res.send({ memberInfo });
+      } else {
+        res.status(404).send({ message: "Member not found" });
+      }
+    }
+  );
+});
 
 app.listen(3000, () =>{
   console.log("Running server");
