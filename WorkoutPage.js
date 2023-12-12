@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Picker, Image, Button } from 'react-native';
+import WorkoutPage from './SignUp';
 
 const WorkoutPage = () => {
   const [muscleFocus, setMuscleFocus] = useState('');
@@ -16,22 +17,38 @@ const WorkoutPage = () => {
   };
 
   return (
-    <View style={{ flex: 1, padding: 20 }}>
+    <View style={{ flex: 1, padding: 20, backgroundColor: "#F2856D" }}>
        
-       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#D3D3D3' }}>
-        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>SmartFit</Text>
+       <View style={{ flexDirection: 'coloumn', justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={{ 
+        textAlign: "center" ,
+        fontSize: 24,
+        fontWeight: 'bold', 
+        textShadowColor:'#F2C49B', 
+        textShadowOffset:{width: 1, height: 1}, 
+        textShadowRadius: 2, 
+        // fontFamily: 'SpaceGrotesk'
+        }}>SmartFit</Text>
         
         <Image
           source={require('./assets/logo.png')}
           style={{ width: 200, height: 200, borderRadius: 15 }}
         />
       </View>
-      <Text>Select Muscle Focus:</Text>
+      <Text style={{paddingBottom: 3, 
+        paddingLeft: 15, 
+        color: '#F2C49B', 
+        fontSize: 18,
+        fontWeight: 'bold', 
+        textShadowColor:'black', 
+        textShadowOffset:{width: 1, height: 1}, 
+        textShadowRadius: 2
+        }}>Select Muscle Focus:</Text>
       <Picker
       
         selectedValue={muscleFocus}
         onValueChange={(itemValue) => setMuscleFocus(itemValue)}
-        style={{padding: 10, marginBottom: 20}}
+        style={{paddingLeft: 15 ,borderRadius: 25, padding: 10, marginBottom: 20 ,backgroundColor: "#F2C49B"}}
 
       >
         <Picker.Item label="Choose One" value="Choose One"/>
@@ -41,11 +58,19 @@ const WorkoutPage = () => {
         {/* Add more muscle focus options as needed */}
       </Picker>
 
-      <Text>Select Location:</Text>
+      <Text style={{paddingBottom: 3, 
+        paddingLeft: 15, 
+        color: '#F2C49B', 
+        fontSize: 18,
+        fontWeight: 'bold',
+        textShadowColor:'black', 
+        textShadowOffset:{width: 1, height: 1}, 
+        textShadowRadius: 2
+        }}>Select Location:</Text>
       <Picker
         selectedValue={location}
         onValueChange={(itemValue) => setLocation(itemValue)}
-        style={{padding: 10, marginBottom: 20}}
+        style={{paddingLeft: 15 ,borderRadius: 25, padding: 10, marginBottom: 20 ,backgroundColor: "#F2C49B"}}
 
       >
         <Picker.Item label="Choose One" value="Choose One"/>        
@@ -53,11 +78,19 @@ const WorkoutPage = () => {
         <Picker.Item label="Home" value="Home" />
       </Picker>
 
-      <Text>Select Equipment:</Text>
+      <Text style={{paddingBottom: 3, 
+        paddingLeft: 15, 
+        color: '#F2C49B', 
+        fontSize: 18,
+        fontWeight: 'bold', 
+        textShadowColor:'black', 
+        textShadowOffset:{width: 1, height: 1}, 
+        textShadowRadius: 2
+        }}>Select Equipment:</Text>
       <Picker
         selectedValue={equipment}
         onValueChange={(itemValue) => setEquipment(itemValue)}
-        style={{padding: 10, marginBottom: 20}}
+        style={{paddingLeft: 15 ,borderRadius: 25, padding: 10, marginBottom: 20 ,backgroundColor: "#F2C49B"}}
       >
         <Picker.Item label="Choose One" value="Choose One"/>
         <Picker.Item label="Dumbbells" value="Dumbbells" />
@@ -68,7 +101,7 @@ const WorkoutPage = () => {
       <Button
         title="Submit"
         onPress={handleSubmission}
-        style={{paddingVertical: 50 }}
+        style={{paddingVertical: 50, backgroundColor: '#4EA4D9' }}
       />
     </View>
   );
