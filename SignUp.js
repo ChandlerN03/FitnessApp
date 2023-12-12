@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { View, ScrollView, TextInput, TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
-import axios from 'axios';
+//import axios from 'axios';
 
-function SignUp({navigation}) {
+function WorkoutPage({navigation}) {
     const [fullname, setFullname] = useState("");
     const [age, setAge] = useState("");
     const [gender, setGender] = useState("");
@@ -162,7 +162,7 @@ function SignUp({navigation}) {
         marginTop: 50, 
       },
     signupBtn: {
-      width: "1000%",
+      width: "150%",
       borderRadius: 25,
       height: 50,
       alignItems: "center",
@@ -170,6 +170,8 @@ function SignUp({navigation}) {
       marginTop: 20,
       marginBottom: 10,
       backgroundColor: "#6DCCF2",
+      borderWidth:2,
+      borderColor: "black",
     },
     signupText: {
       color: "white",
@@ -177,11 +179,12 @@ function SignUp({navigation}) {
     inputView: {
         backgroundColor: "#FFC0CB",
         borderRadius: 30,
-        width: "1000%",
+        width: "100%",
         borderWidth:2,
         borderColor: "black",
         height: 45,
         marginBottom: 20,
+        justifyContent: 'center', 
         alignItems: "center",
       },
       TextInput: {
@@ -192,13 +195,15 @@ function SignUp({navigation}) {
         
       },
     loginBtn: {
-      width: "1000%",
+      width: "150%",
       borderRadius: 25,
       height: 50,
       alignItems: "center",
       justifyContent: "center",
       marginTop: 10,
       backgroundColor: "#FF1493",
+      borderWidth:2,
+      borderColor: "black",
     },
     loginText: {
       color: "white",
@@ -210,4 +215,4 @@ function SignUp({navigation}) {
       },
   });
 
-  export default SignUp;
+  export default WorkoutPage;
