@@ -16,7 +16,8 @@ function Login({ navigation }) {
         if (response.data.length > 0) {
           // Successful login
           alert("Login Success");
-          navigation.navigate('Home');
+          navigation.navigate('Home', { username: username }); // Pass the username to Home
+          //navigation.navigate('BMIpage');
           console.log("Login successful");
         } else {
           // Failed login
