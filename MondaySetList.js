@@ -9,6 +9,7 @@ import {
     StyleSheet, 
     Image,
 } from "react-native"; 
+import { ScrollView } from "react-native-gesture-handler";
   
 const App = () => { 
     const [task, setTask] = useState(""); 
@@ -18,14 +19,28 @@ const App = () => {
     const [EmptyWater, setEmptyWater] = useState(true);
     //const [showImage, setShowImage] = useState(false);
     const [images, setImages] = useState([]);
-    const [caloriesConsumed, setCaloriesConsumed] = useState("");
-    const [caloriesConsumeds, setCaloriesConsumeds] = useState([]);
-    const [caloriesGoal, setCaloriesGoal] = useState("");
-    const [caloriesGoals, setCaloriesGoals] = useState([]);
+    const [caloriesConsumed, setCaloriesConsumed] = useState(1500);
+  const [caloriesGoal, setCaloriesGoal] = useState(2000);
+  const [newConsumed, setNewConsumed] = useState('');
+  const [newGoal, setNewGoal] = useState('');
+
+  // Calculate percentage of calories consumed
+  const percentage = (caloriesConsumed / caloriesGoal) * 100;
   
-    // Calculate percentage of calories consumed
-    const percentage = (caloriesConsumed / caloriesGoal) * 100;
-  
+  const handleSetConsumed = () => {
+    if (newConsumed !== '') {
+      setCaloriesConsumed(parseInt(newConsumed));
+      setNewConsumed('');
+    }
+  };
+
+  const handleSetGoal = () => {
+    if (newGoal !== '') {
+      setCaloriesGoal(parseInt(newGoal));
+      setNewGoal('');
+    }
+  };
+
 
   
     const switchImage = () => {
@@ -118,41 +133,68 @@ const App = () => {
       
     
     return ( 
-        
+        <ScrollView>
         <View style={styles.container}> 
 
-        <Text style={styles.title}>Monday</Text> 
+        <Text style={styles.title}>Monday</Text>
 
-
-
-        <Text style={styles.heading}>Caliorie Counter</Text> 
+        <Text style={styles.heading}>Calorie Counter</Text>
             <View style={styles.form}>
+            <View style={styles.Cal}>
             <Text>Consumed: {caloriesConsumed} kcal</Text>
-      <Text>Goal: {caloriesGoal} kcal</Text>
+            <TextInput
+            style={styles.CalInput}
+            placeholder="Enter new consumed calories"
+            keyboardType="numeric"
+            value={newConsumed}
+            onChangeText={(text) => setNewConsumed(text)}
+            />
+      
+      <TouchableOpacity style={styles.addButton} onPress={handleSetConsumed}>
+        <Text>Set Consumed </Text>
+      </TouchableOpacity>
+
+      <Text>Goal:</Text>
+      <Text>{caloriesGoal} kcal</Text>
+      <TextInput
+        style={styles.CalInput}
+        placeholder="Enter new goal calories"
+        keyboardType="numeric"
+        value={newGoal}
+        onChangeText={(text) => setNewGoal(text)}
+      />
+      <TouchableOpacity style={styles.button} onPress={handleSetGoal}>
+        <Text style={styles.addButton}>Set Goal</Text>
+      </TouchableOpacity>
+
+      </View>
+      
+
 
       <Svg height="200" width="200">
         <Circle
           cx="100"
           cy="100"
-          r="80"
+          r="60"
           stroke="#f2f2f2"
-          strokeWidth="20"
+          strokeWidth="18"
           fill="transparent"
         />
         <Circle
           cx="100"
           cy="100"
-          r="80"
+          r="60"
           stroke="#ff6f61"
-          strokeWidth="20"
+          strokeWidth="18"
           fill="transparent"
           strokeDasharray={`${percentage}, 100`}
         />
       </Svg>
 
+        <View>
       <Text style={styles.percentage}>{percentage.toFixed(2)}%</Text>
             </View>
-
+            </View>
 
 
         <Text style={styles.heading}>Water In-take</Text> 
@@ -196,6 +238,7 @@ const App = () => {
                 keyExtractor={(item, index) => index.toString()} 
             />  
         </View> 
+        </ScrollView>
     ); 
 }; 
   
@@ -203,7 +246,8 @@ const styles = StyleSheet.create({
     container: { 
         flex: 1, 
         padding: 20, 
-        marginTop: 20,
+        marginTop: 0,
+        marginBottom: 50,
     }, 
 
     form: { 
@@ -215,7 +259,12 @@ const styles = StyleSheet.create({
         elevation: 15,
         marginBottom: 20, 
         flexDirection: 'row',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
     },
+
     minus:{
         color: "black",
         marginBottom: -800, 
@@ -249,6 +298,18 @@ const styles = StyleSheet.create({
         marginBottom: 10, 
         borderRadius: 10, 
         fontSize: 18, 
+    }, 
+
+    CalInput: { 
+        borderWidth: 1, 
+        borderColor: "#ccc", 
+        padding: 5, 
+        padding: 4, 
+        width: 80,
+        height: 40,
+        marginBottom: 10, 
+        borderRadius: 5, 
+        fontSize: 12, 
     }, 
 
     addButton: { 
@@ -297,6 +358,11 @@ const styles = StyleSheet.create({
         width:  50,
         height: 50,
         resizeMode: 'contain', // Choose the appropriate resizeMode
+      },
+
+      percentage: {
+        fontSize: 24,
+        color: '#ff6f61',
       },
 }); 
   
