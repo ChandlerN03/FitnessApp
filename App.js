@@ -8,6 +8,8 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import BMIpage from "./BMIpage"; // Import BMIpage component
 import Home from "./Home";
+import WorkoutLog from "./WorkoutLog"; // Import the new blank page
+import WorkoutPage from "./WorkoutPage";
 
 const Stack = createStackNavigator();
 
@@ -42,6 +44,16 @@ function App() {
           name="BMIpage"
           component={BMIpage}
           options={{ title: "BMI Calculator" }}
+        />
+        <Stack.Screen
+          name="WorkoutLog"
+          component={WorkoutLog}
+          options={{ title: "WorkoutLog" }}
+        />
+        <Stack.Screen
+          name="WorkoutPage"
+          component={WorkoutPage}
+          options={{ title: "WorkoutPage" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
