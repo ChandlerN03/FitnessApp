@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
-import { View, Text, Picker, Image, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, Image, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 
 const WorkoutPage = () => {
   const [muscleFocus, setMuscleFocus] = useState('');
@@ -10,13 +11,11 @@ const WorkoutPage = () => {
   const handleSubmission = () => {
     // You can customize this function to handle the submission of selected values
     // For now, we'll just display an alert with the selected values
-    Alert.alert(
-      'Selected Values',
-      `Muscle Focus: ${muscleFocus}\nLocation: ${location}\nEquipment: ${equipment}`
-    );
+    console.log("Hi");
   };
 
   return (
+    <ScrollView style={styles.container}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerText}>Workout Directory</Text>
@@ -26,7 +25,7 @@ const WorkoutPage = () => {
           <View style={styles.logoContainer}>
             <Text style={styles.logoText}>SmartFit</Text>
             <Image
-              source={require('./assets/logo.png')}
+              source={require('./assets/FitnessIcon.png')}
               style={styles.logoImage}
             />
           </View>
@@ -76,6 +75,7 @@ const WorkoutPage = () => {
           <Text style={styles.excerciseText}>Excercises</Text>
         </View>
       </View>
+    </ScrollView>
     );
   };
   
@@ -157,7 +157,7 @@ const WorkoutPage = () => {
       textShadowRadius: 2,
     },
     exercisesText:{
-      ontSize: 20,
+      fontSize: 20,
       paddingVertical: 5,
       borderRadius: 25,
       paddingBottom: 3,
