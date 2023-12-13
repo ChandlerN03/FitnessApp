@@ -91,6 +91,25 @@ app.get("/member/:username", (req, res) => {
   );
 });
 
+app.get("/workout_logs/:username", (req, res) => {
+  const username = req.params.username;
+
+  connection.query(
+    "SELECT * FROM Workout_Log WHERE username = ?",
+    [username],
+    (err, result) => {
+      if (err) {
+        console.error("Error fetching workout logs:", err);
+        return res.status(500).send({ message: "Internal Server Error" });
+      }
+
+      console.log("Workout logs fetched successfully:", result);
+      return res.send({ workoutLogs: result });
+    }
+  );
+});
+
+
 app.listen(3000, () =>{
   console.log("Running server");
 })
