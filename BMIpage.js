@@ -1,7 +1,7 @@
 // App.js 
 import React, { useState } from 'react'; 
 import { View, Text, TextInput, TouchableOpacity,  
-    StyleSheet, ScrollView } from 'react-native'; 
+    StyleSheet, ScrollView, Picker } from 'react-native'; 
   
 const App = () => { 
     const [age, setAge] = useState(''); 
@@ -9,6 +9,7 @@ const App = () => {
     const [weight, setWeight] = useState(''); 
     const [gender, setGender] = useState(''); 
     const [bmiResult, setBmiResult] = useState(null); 
+    const [fitnessLevel, setFitnessLevel] = useState('Choose Level')// default value
   
     const validateForm = () => { 
         if (!age || !height || !weight || !gender) { 
@@ -43,6 +44,7 @@ const App = () => {
         setHeight(''); 
         setWeight(''); 
         setGender(''); 
+        setFitnessLevel('Choose Level');
     }; 
   
     
@@ -114,6 +116,7 @@ const App = () => {
                         <Text style={styles.genderText}>Female</Text> 
                     </TouchableOpacity> 
                 </View> 
+                
                 <TouchableOpacity 
                     style={styles.submitButton} 
                     onPress={validateForm} 
@@ -150,14 +153,16 @@ const App = () => {
                     <Text style={styles.label}> 
                         Fitness level
                     </Text> 
-                    <TextInput 
-                        style={styles.textInput} 
-                        placeholder="Beginner, Intermidiate, Advance"
-                        onChangeText={setAge} 
-                        value={age} 
-                        keyboardType="numeric"
-                        name="age"
-                    /> 
+                    <Picker 
+                      style={styles.picker}
+                      selectedValue={fitnessLevel}
+                      onValueChange={(itemValue) => setFitnessLevel(itemValue)}
+                    >
+                      <Picker.Item label="Choose Level" value="Choose Level" />
+                      <Picker.Item label="Beginner" value="Beginner" />
+                      <Picker.Item label="Intermediate" value="Intermediate" />
+                      <Picker.Item label="Advanced" value="Advanced" />
+                    </Picker>
                 </View> 
                 <View style={styles.inputRow}> 
                     <Text style={styles.label}> 
@@ -223,6 +228,7 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         justifyContent: 'space-between', 
         marginBottom: 20, 
+        width: '100',
     }, 
     label: { 
         flex: 1, 
@@ -285,6 +291,18 @@ const styles = StyleSheet.create({
     resultText: { 
         fontSize: 16,
     }, 
+    picker: {
+      height: 40,
+      width: 393,
+      borderWidth: 1,
+      borderColor: '#ddd',
+      borderRadius: 10,
+      paddingLeft: 10,
+      flexDirection: 'row', 
+      alignItems: 'center', 
+      justifyContent: 'space-between', 
+       
+    },
 }); 
   
 export default App;
