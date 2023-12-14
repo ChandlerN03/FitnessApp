@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
-const App = () => {
+const MondaySetList = () => {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
   const [editIndex, setEditIndex] = useState(-1);
@@ -284,13 +284,13 @@ const App = () => {
               <RenderImage key={index} index={index} />
             ))}
           </View>
-          <TouchableOpacity onPress={addImage} style={styles.addButton}>
+        </View>
+        <TouchableOpacity onPress={addImage} style={styles.addButton}>
             <Text style={styles.plus}>+</Text>
           </TouchableOpacity>
-        </View>
 
         <Text style={styles.heading}>Food Intake</Text>
-        <View style={styles.form}>
+        
           <TextInput
             style={styles.input}
             placeholder="Enter Food Item"
@@ -303,7 +303,7 @@ const App = () => {
           >
             <Text style={styles.addButtonText}>Add Food</Text>
           </TouchableOpacity>
-        </View>
+        
         <FlatList
           data={foodIntake}
           renderItem={RenderFood}
@@ -332,7 +332,6 @@ const App = () => {
         />
 
         <Text style={styles.heading}>Journal</Text>
-        <View style={styles.form}>
           <TextInput
             style={styles.input}
             placeholder="Write your Journal Entry"
@@ -346,7 +345,7 @@ const App = () => {
           >
             <Text style={styles.addButtonText}>Add Entry</Text>
           </TouchableOpacity>
-        </View>
+
 
         <FlatList
           data={journalEntries}
@@ -562,4 +561,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default MondaySetList;
+
