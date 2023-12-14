@@ -161,7 +161,7 @@ function SignUp({navigation}) {
         marginTop: 8, 
       },
     signupBtn: {
-      width: 100,
+      width: 200,
       borderRadius: 25,
       height: 50,
       alignItems: "center",
@@ -176,19 +176,19 @@ function SignUp({navigation}) {
     inputView: {
         backgroundColor: "#FFC0CB",
         borderRadius: 30,
-        width: "70%",
+        width: 200,
         height: 45,
         marginBottom: 20,
         alignItems: "center",
       },
       TextInput: {
         height: 40, // Adjust the height as needed
-        width: "100%",
+        width: 150,
         padding: 10,
         marginLeft: 20,
       },
     loginBtn: {
-      width: "80%",
+      width: 200,
       borderRadius: 25,
       height: 50,
       alignItems: "center",
@@ -207,4 +207,3 @@ function SignUp({navigation}) {
   });
 
   export default SignUp;
-
