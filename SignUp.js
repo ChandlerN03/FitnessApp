@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { View, ScrollView, TextInput, TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
-//import axios from 'axios';
+import axios from 'axios';
 
-function WorkoutPage({navigation}) {
+function SignUp({navigation}) {
     const [fullname, setFullname] = useState("");
     const [age, setAge] = useState("");
     const [gender, setGender] = useState("");
@@ -52,7 +52,6 @@ function WorkoutPage({navigation}) {
     return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.container}>
-        <Text style={styles.title}> Sign Up</Text>
         <View style={styles.inputView}>
           <TextInput
             style={styles.TextInput}
@@ -159,19 +158,17 @@ function WorkoutPage({navigation}) {
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 50, 
+        marginTop: 8, 
       },
     signupBtn: {
-      width: "150%",
+      width: 100,
       borderRadius: 25,
       height: 50,
       alignItems: "center",
       justifyContent: "center",
       marginTop: 20,
       marginBottom: 10,
-      backgroundColor: "#6DCCF2",
-      borderWidth:2,
-      borderColor: "black",
+      backgroundColor: "#4CAF50",
     },
     signupText: {
       color: "white",
@@ -179,31 +176,25 @@ function WorkoutPage({navigation}) {
     inputView: {
         backgroundColor: "#FFC0CB",
         borderRadius: 30,
-        width: "100%",
-        borderWidth:2,
-        borderColor: "black",
+        width: "70%",
         height: 45,
         marginBottom: 20,
-        justifyContent: 'center', 
         alignItems: "center",
       },
       TextInput: {
         height: 40, // Adjust the height as needed
         width: "100%",
-        padding: 20,
+        padding: 10,
         marginLeft: 20,
-        
       },
     loginBtn: {
-      width: "150%",
+      width: "80%",
       borderRadius: 25,
       height: 50,
       alignItems: "center",
       justifyContent: "center",
       marginTop: 10,
       backgroundColor: "#FF1493",
-      borderWidth:2,
-      borderColor: "black",
     },
     loginText: {
       color: "white",
@@ -215,4 +206,5 @@ function WorkoutPage({navigation}) {
       },
   });
 
-  export default WorkoutPage;
+  export default SignUp;
+
