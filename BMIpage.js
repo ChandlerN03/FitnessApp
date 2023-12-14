@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity,  
     StyleSheet, ScrollView, Picker } from 'react-native'; 
   
-const App = () => { 
+const BMIpage = () => { 
     const [age, setAge] = useState(''); 
     const [height, setHeight] = useState(''); 
     const [weight, setWeight] = useState(''); 
@@ -169,7 +169,7 @@ const App = () => {
                         Height (cm) 
                     </Text> 
                     <TextInput 
-                        style={styles.textInput} 
+                        style={styles.textInput1} 
                         placeholder="Enter your height"
                         onChangeText={setHeight}
                         input type="number" 
@@ -183,7 +183,7 @@ const App = () => {
                         Weight (kg) 
                     </Text> 
                     <TextInput 
-                        style={styles.textInput} 
+                        style={styles.textInput1} 
                         placeholder="Enter your weight"
                         onChangeText={setWeight} 
                         value={weight} 
@@ -291,18 +291,32 @@ const styles = StyleSheet.create({
     resultText: { 
         fontSize: 16,
     }, 
+    textInput1: { 
+        flex: 2, 
+        height: 40,
+        width: 40, 
+        borderWidth: 1, 
+        borderColor: '#ddd', 
+        borderRadius: 10, 
+        paddingLeft: 10, 
+        fontSize: 16, 
+        flexDirection: 'row', 
+        alignItems: 'center'
+    }, 
     picker: {
       height: 40,
-      width: 393,
+      width: 400,
       borderWidth: 1,
       borderColor: '#ddd',
       borderRadius: 10,
       paddingLeft: 10,
       flexDirection: 'row', 
       alignItems: 'center', 
+      flexwrap: 'wrap',
       justifyContent: 'space-between', 
        
     },
 }); 
   
-export default App;
+export default BMIpage;
+
