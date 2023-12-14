@@ -39,7 +39,7 @@ const ExerciseList = ({ exercises, toggleVariable }) => {
 };
   
 
-const WorkoutPage = () => {
+const App = () => {
   const initalExercises = [
   /*{ name: 'One-arm dumbbell row', description: "pulling a dumbbell towards your hip while supporting yourself on a bench, targeting the upper back and engaging the core.",
     muscle: "Back", equip: "Dumbbells", reps: 10, sets: 3, id: 1 },*/
@@ -156,7 +156,9 @@ const WorkoutPage = () => {
 
         </View>
        
-        <Text>Select Muscle Focus:</Text>
+        <Text style={styles.label}>
+            Select Muscle Focus:
+        </Text>
         <RNPickerSelect
           onValueChange={(value) => setSelectedMuscle(value)}
           items={[
@@ -177,7 +179,9 @@ const WorkoutPage = () => {
       </View>
 
       <View style={styles.pickerContainer}>
-        <Text>Select Equipment:</Text>
+      <Text style={styles.label}>
+            Select Muscle Focus:
+        </Text>
         <RNPickerSelect
           onValueChange={(value) => setSelectedEquipment(value)}
           items={[
@@ -347,4 +351,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default WorkoutPage ;
+export default App;
