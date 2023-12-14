@@ -1,213 +1,181 @@
-import React, { useState } from "react";
-import { View, ScrollView, TextInput, TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
-//import axios from 'axios';
+    import React, { useState, useEffect } from "react";
+    import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+    import { useNavigation, useRoute } from "@react-navigation/native";
+    import axios from "axios";
+    import {Video as ExpoVideo}from "expo-av";
+    import { StatusBar } from "expo-status-bar";
 
-function WorkoutPage({navigation}) {
-    const [fullname, setFullname] = useState("");
-    const [age, setAge] = useState("");
-    const [gender, setGender] = useState("");
-    const [dob, setDOB] = useState("");
-    const [height, setHeight] = useState("");
-    const [weight, setWeight] = useState("");
-    const [newEmail, setNewEmail] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [username, setUsername] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-  
-    const onPressSignUp = async () => {
-        try{
-    console.log("onPressSignUp function called");
-      const userDetails = {
-        Fullname: fullname,
-        Age: age,
-        Gender: gender,
-        DOB: dob,
-        Height: height,
-        Weight: weight,
-        Email: newEmail,
-        PhoneNumber: phoneNumber,
-        Username: username,
-        Password: newPassword,
-      }; 
-      console.log("User details:", userDetails);
-      const response = await axios.post("http://localhost:3000/register", userDetails);
-      console.log("Server response:", response.data);
-  
-      alert("User registered successfully!");
-      navigation.navigate('Login');
-    }
-    
-    catch (error) {
-        console.error("Error during registration:", error);
-    
-        if (error.response) {
-          console.error("Server response:", error.response.data);
-        }
-    
-        Alert.alert("Error", "Failed to register user.");
-      }
+
+    function Home() {
+    const navigation = useNavigation();
+    const route = useRoute();
+    const [memberInfo, setMemberInfo] = useState(null);
+    const {username} = route.params;
+    const videoRef = React.useRef(null)
+
+
+    useEffect(() => {
+        axios.get(`http://localhost:3000/member/${username}`)
+        .then(response => {
+            console.log("Member Info:", response.data.memberInfo);
+            setMemberInfo(response.data.memberInfo);
+        })
+        .catch(error => {
+            console.error("Error fetching member info:", error);
+        });
+    }, [username]);
+
+    const goToBMIpage = () => {
+        navigation.navigate("BMIpage");
     };
-  
+
+    const goToWorkoutLog = () => {
+        navigation.navigate('WorkoutLog', { username: username })    
+    };
+
+    const goToWorkoutPage = () => {
+        navigation.navigate('WorkoutPage', {username: username });
+      };
+    
+
+    const goToWeeklyAgenda = () => {
+        navigation.navigate("Calendar"); // Use the correct screen name here
+    };
+
+
+    const [status, setStatus] = React.useState({})
+
     return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.container}>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Fullname"
-            placeholderTextColor="#003f5c"
-            onChangeText={(text) => setFullname(text)}
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Age"
-            placeholderTextColor="#003f5c"
-            onChangeText={(text) => setAge(text)}
-            keyboardType="numeric"
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Gender"
-            placeholderTextColor="#003f5c"
-            onChangeText={(text) => setGender(text)}
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Date of Birth"
-            placeholderTextColor="#003f5c"
-            onChangeText={(text) => setDOB(text)}
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Height"
-            placeholderTextColor="#003f5c"
-            onChangeText={(text) => setHeight(text)}
-            keyboardType="numeric"
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Weight"
-            placeholderTextColor="#003f5c"
-            onChangeText={(text) => setWeight(text)}
-            keyboardType="numeric"
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Email"
-            placeholderTextColor="#003f5c"
-            onChangeText={(text) => setNewEmail(text)}
-            keyboardType="email-address"
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Phone Number"
-            placeholderTextColor="#003f5c"
-            onChangeText={(text) => setPhoneNumber(text)}
-            keyboardType="phone-pad"
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Username"
-            placeholderTextColor="#003f5c"
-            onChangeText={(text) => setUsername(text)}
-          />
-        </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Password"
-            placeholderTextColor="#003f5c"
-            secureTextEntry={true}
-            onChangeText={(text) => setNewPassword(text)}
-          />
-        </View>
-        <TouchableOpacity onPress={onPressSignUp} style={styles.signupBtn}>
-          <Text style={styles.signupText}>SIGN UP</Text>
+        <View style={styles.container}>
+        {memberInfo && (
+            <View style={styles.profileCard}>
+            <Text style={styles.welcomeText}>Welcome, {memberInfo.Full_name}</Text>
+            <Text style={styles.cardText}>Full Name: {memberInfo.Full_name}</Text>
+            <Text style={styles.cardText}>Age: {memberInfo.age}</Text>
+            <Text style={styles.cardText}>Gender: {memberInfo.gender}</Text>
+            <Text style={styles.cardText}>DOB: {memberInfo.DOB}</Text>
+            <Text style={styles.cardText}>Email: {memberInfo.email}</Text>   
+            <Text style={styles.cardText}>Phone Number: {memberInfo.Phone_number}</Text>
+            </View>
+        )}
+        <TouchableOpacity
+            style={styles.button}
+            onPress={goToBMIpage}
+        >
+            <Text style={styles.buttonText}>Go to BMI Calculator</Text>
         </TouchableOpacity>
-        
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.loginBtn}>
-          <Text style={styles.loginText}>Go Back</Text>
-        </TouchableOpacity>
-      </View>
-      </ScrollView>
 
+        <TouchableOpacity onPress={goToWorkoutLog} style={styles.button1}>
+            <Text style={styles.buttonText}>Go to WorkoutLog</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+            style={styles.button2}
+            onPress={goToWorkoutPage}
+        >
+            <Text style={styles.buttonText}>Go to WorkoutPage</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button3} onPress={goToWeeklyAgenda}>
+        <Text style={styles.buttonText}>Go to Weekly Agenda</Text>
+      </TouchableOpacity>
+
+      
+
+        <ExpoVideo
+      ref={videoRef}
+      style = {styles.video}
+      source={require("./assets/M.mp4")}
+      useNativeControls
+      resizeMode = "contain"
+      isLooping
+      onPlaybackStatusUpdate = {setStatus}
+      //Added Video code to see if it fits container
+    />
+
+        </View>
     );
-  }
+    }
 
-  const styles = StyleSheet.create({
-    // ... existing styles
+    const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
-      },
-    signupBtn: {
-      width: 150,
-      borderRadius: 25,
-      height: 50,
-      alignItems: "center",
-      justifyContent: "center",
-      marginTop: 20,
-      marginBottom: 10,
-      backgroundColor: "#6DCCF2",
+        backgroundColor: "#F2856D",
+        padding: 20,
+        position: "relative",
     },
-    signupText: {
-      color: "white",
-    },
-    inputView: {
-        backgroundColor: "#FFC0CB",
-        borderRadius: 30,
-        width: 300,
-        height: 45,
-        marginBottom: 20,
-        justifyContent: 'center', 
-        alignItems: "center",
-        padding: 10,
-        textAlignVertical: 'top',
-        maxHeight: 100, // Optional: Set a maximum height
-      },
-      TextInput: {
-        height: 40, // Set a fixed height
-        width: "100%",
-        marginLeft: 0,
-        textAlignVertical: 'top',
-        maxHeight: 100, // Optional: Set a maximum height
-      },
-    loginBtn: {
-      width: 150,
-      borderRadius: 25,
-      height: 50,
-      alignItems: "center",
-      justifyContent: "center",
-      marginTop: 10,
-      backgroundColor: "#FF1493",
-    },
-    loginText: {
-      color: "white",
-    },
-    title: {
-        fontSize: 24,
+    welcomeText: {
+        fontSize: 20,
         fontWeight: "bold",
-        marginBottom: 20, // Adjust this value to create space between title and input fields
-      },
-  });
+        marginBottom: 10,
+    },
+    profileCard: {
+        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        borderRadius: 70,
+        padding: 30,
+        position: "absolute",
+        top: 20,
+        left: 60,
+        width: 300,
+    },
+    cardText: {
+        fontSize: 18,
+        marginBottom: 6,
+    },
+    button: {
+        backgroundColor: "#2596be",
+        padding: 15,
+        borderRadius: 5,
+        alignSelf: "center",
+        position: "absolute",
+        bottom: '35%',
+    },
+    buttonText: {
+        color: "#fff",
+        fontSize: 16,
+    },
+    button1: {
+        backgroundColor: "#2596be",
+    padding: 15,
+    borderRadius: 5,
+    alignSelf: "center",
+    position: "absolute",
+    bottom: "25%",  // AdjusAdjust the left position based on your layout
+    },
 
-  export default WorkoutPage;
+    button2: {
+        backgroundColor: "#2596be",
+    padding: 15,
+    borderRadius: 5,
+    alignSelf: "center",
+    position: "absolute",
+    bottom: "15%",  // Ad/ Adjust the left position based on your layout
+    },
+    buttonText: {
+        color: "#fff",
+        fontSize: 16,
+    },
+
+    button3: {
+        backgroundColor: "#2596be",
+        padding: 15,
+        borderRadius: 5,
+        alignSelf: "center",
+        position: "absolute",
+        bottom: "5%",
+      },
+
+    video: {
+        flex: 1,
+        position: "absolute",
+        top: '40%',  // Adjust the top position based on your layout
+        right: '20%', // Adjust the right position based on your layout
+        left: '20%',  // Adjust the left position based on your layout
+        bottom: '45%', // Adjust the bottom position based on your layout
+        alignSelf: "center",
+      },
+
+    });
+
+
+    export default Home;
