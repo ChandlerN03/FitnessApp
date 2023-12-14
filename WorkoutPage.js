@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView,View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput, Image } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
-//import BouncyCheckbox from "react-native-bouncy-checkbox";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 /*
 <BouncyCheckbox
@@ -39,7 +39,7 @@ const ExerciseList = ({ exercises, toggleVariable }) => {
 };
   
 
-const App = () => {
+const WorkoutPage = () => {
   const initalExercises = [
   /*{ name: 'One-arm dumbbell row', description: "pulling a dumbbell towards your hip while supporting yourself on a bench, targeting the upper back and engaging the core.",
     muscle: "Back", equip: "Dumbbells", reps: 10, sets: 3, id: 1 },*/
@@ -115,24 +115,75 @@ const App = () => {
   //it searches the exercise objects to see the selected ones and add it to an array
   //array is called unserRequestedExercies
   //i forgot the date
-
-  const printInfo = () =>{ 
-    console.log("Your Mom");
+  function isNumber(value) {
+    return typeof value === 'number';
+  }
   
+  const validateDate = () =>{
+    let lastNum = 0;
+      if(isNumber(parseInt(date.slice(0,2)))){
+        let month = parseInt(date.slice(0,2));
+        if(month > 12 || month < 1){
+          alert("Input a proper Month from 1-12");
+          return;
+        }
+        if(date.slice(2,3) != '/'){
+          alert("missing / after the month \n"+"enter in the format mm/dd/yyyy");
+          return;
+        }
+        lastNum = 3;
+      }
+      else{
+        alert("Input a proper Month from 1-12 in the format mm/dd/yyyy");
+        return;
+      }
+
+      if(isNumber(parseInt(date.slice(lastNum,lastNum+2)))){
+        let day = parseInt(date.slice(lastNum,lastNum+2));
+        if(day > 31 || day < 1){
+          alert("Input a proper day from 1-31 \nIn the format: mm/dd/yyyy");
+          return;
+        }
+        if(date.slice(lastNum+2,lastNum+3) != '/'){
+          alert("missing / after the date \n"+"enter in the format mm/dd/yyyy");
+          return;
+        }
+        lastNum = lastNum + 3;
+      }
+      else{
+        alert("Input a proper day in the range 1-31 in the format mm/dd/yyyy");
+        return;
+      }
+      if(isNumber(parseInt(date.slice(lastNum,lastNum+4)))){
+        let year = parseInt(date.slice(lastNum,lastNum+4));
+        if(year > 2025 || year < 1920){
+          alert("Input a proper year from 1920-2025");
+          return;
+        }
+      }
+      else{
+        alert("Input a proper year in the format mm/dd/yyyy");
+        return;
+      }
+      alert("success");
+      return true;
+
+  }
+
+  const addExercise = () =>{ 
+    if(date === ''){//catches error that they didnt enter a date
+      alert("Please enter a date");
+      return;
+    }
+    if(!validateDate()){
+      return;
+    }
     for(let i = 0; i < exercises.length;i++){
     
       if(exercises[i].selected === true){
-        console.log(exercises[i].name);
+        exercises[i].date = date;
         userRequestedExercises[userRequestedExercises.length] = exercises[i];
       }
-    }
-    printSomething();
-  }
-
-  const printSomething = () =>{
-    console.log("Your Mom again");
-    for(let i = 0; i < userRequestedExercises.length;i++){
-      console.log(userRequestedExercises[i].name);
     }
   }
 
@@ -191,7 +242,10 @@ const App = () => {
           ]}
         />
       </View>
-      <Text>Exercises</Text>
+      <Text style={styles.label}>
+            Exercises:
+        </Text>
+      
       <ExerciseList exercises={filteredExercises} toggleVariable={toggleVariable}/>
       <TextInput
             style={styles.TextInput}
@@ -199,7 +253,7 @@ const App = () => {
             placeholderTextColor="#003f5c"
             onChangeText={(text) => setDOB(text)}
           />
-      <TouchableOpacity style={styles.resetButton} onPress={printInfo}>
+      <TouchableOpacity style={styles.resetButton} onPress={addExercise}>
         <Text>Submit</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.resetButton} onPress={resetExercises}>
@@ -351,4 +405,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default App;
+export default WorkoutPage;
